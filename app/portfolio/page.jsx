@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -33,6 +33,7 @@ import {
   Award,
   Users,
 } from "lucide-react"
+import { portfolioItems } from "@/data/mock-data"
 
 export default function PortfolioPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -40,145 +41,7 @@ export default function PortfolioPage() {
   const [sortBy, setSortBy] = useState("newest")
   const [favorites, setFavorites] = useState(new Set())
 
-  const portfolioItems = [
-    {
-      id: 1,
-      title: "Dragon Sleeve Masterpiece",
-      category: "Traditional",
-      image: "/placeholder.svg?height=400&width=400&text=Dragon+Sleeve",
-      price: 25000,
-      duration: "6 hours",
-      size: "Full Sleeve",
-      rating: 5.0,
-      reviews: 12,
-      description:
-        "Intricate traditional Japanese dragon sleeve with detailed scales, flowing clouds, and vibrant colors. This piece represents strength, wisdom, and protection.",
-      tags: ["dragon", "sleeve", "traditional", "japanese", "colorful"],
-      clientTestimonial:
-        "Absolutely stunning work! The attention to detail is incredible and the healing process was smooth.",
-      clientName: "Maria Santos",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Geometric Mandala",
-      category: "Geometric",
-      image: "/placeholder.svg?height=400&width=400&text=Geometric+Mandala",
-      price: 8000,
-      duration: "3 hours",
-      size: "Medium (6 inches)",
-      rating: 4.9,
-      reviews: 8,
-      description:
-        "Precise geometric mandala design with intricate patterns and perfect symmetry. A meditation on balance and harmony.",
-      tags: ["mandala", "geometric", "symmetry", "meditation", "blackwork"],
-      clientTestimonial: "The precision and symmetry are perfect. Exactly what I envisioned!",
-      clientName: "John Cruz",
-      featured: false,
-    },
-    {
-      id: 3,
-      title: "Watercolor Rose",
-      category: "Watercolor",
-      image: "/placeholder.svg?height=400&width=400&text=Watercolor+Rose",
-      price: 12000,
-      duration: "4 hours",
-      size: "Large (8 inches)",
-      rating: 4.8,
-      reviews: 15,
-      description:
-        "Delicate watercolor rose with soft color transitions and artistic brush stroke effects. A modern take on classic floral imagery.",
-      tags: ["rose", "watercolor", "floral", "soft", "artistic"],
-      clientTestimonial: "The colors are so vibrant and the technique is amazing. Love my new tattoo!",
-      clientName: "Ana Reyes",
-      featured: true,
-    },
-    {
-      id: 4,
-      title: "Realistic Portrait",
-      category: "Realism",
-      image: "/placeholder.svg?height=400&width=400&text=Realistic+Portrait",
-      price: 18000,
-      duration: "5 hours",
-      size: "Large (7 inches)",
-      rating: 5.0,
-      reviews: 6,
-      description:
-        "Photorealistic portrait tattoo with incredible detail and shading. Capturing memories and emotions in permanent art.",
-      tags: ["portrait", "realism", "memorial", "detailed", "shading"],
-      clientTestimonial: "It looks exactly like the photo. The artist is incredibly talented!",
-      clientName: "Carlos Mendoza",
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "Minimalist Line Art",
-      category: "Minimalist",
-      image: "/placeholder.svg?height=400&width=400&text=Minimalist+Lines",
-      price: 5000,
-      duration: "2 hours",
-      size: "Small (4 inches)",
-      rating: 4.7,
-      reviews: 10,
-      description:
-        "Clean, minimalist line art with elegant simplicity. Sometimes less is more in creating powerful visual impact.",
-      tags: ["minimalist", "lines", "simple", "elegant", "clean"],
-      clientTestimonial: "Perfect! Simple but so elegant. Exactly what I wanted.",
-      clientName: "Lisa Garcia",
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Tribal Phoenix",
-      category: "Tribal",
-      image: "/placeholder.svg?height=400&width=400&text=Tribal+Phoenix",
-      price: 15000,
-      duration: "4.5 hours",
-      size: "Large (9 inches)",
-      rating: 4.9,
-      reviews: 9,
-      description:
-        "Bold tribal phoenix design symbolizing rebirth and transformation. Strong black lines with traditional tribal patterns.",
-      tags: ["phoenix", "tribal", "rebirth", "bold", "blackwork"],
-      clientTestimonial: "Powerful design and excellent execution. Very happy with the result!",
-      clientName: "Miguel Torres",
-      featured: true,
-    },
-    {
-      id: 7,
-      title: "Neo-Traditional Skull",
-      category: "Neo-Traditional",
-      image: "/placeholder.svg?height=400&width=400&text=Neo+Traditional+Skull",
-      price: 14000,
-      duration: "4 hours",
-      size: "Medium (6 inches)",
-      rating: 4.8,
-      reviews: 7,
-      description:
-        "Neo-traditional skull with vibrant colors and modern artistic elements. A contemporary twist on classic imagery.",
-      tags: ["skull", "neo-traditional", "colorful", "modern", "artistic"],
-      clientTestimonial: "Love the modern twist on the classic design. Colors are amazing!",
-      clientName: "Sofia Dela Cruz",
-      featured: false,
-    },
-    {
-      id: 8,
-      title: "Blackwork Ornamental",
-      category: "Blackwork",
-      image: "/placeholder.svg?height=400&width=400&text=Blackwork+Ornamental",
-      price: 10000,
-      duration: "3.5 hours",
-      size: "Medium (7 inches)",
-      rating: 4.9,
-      reviews: 11,
-      description:
-        "Intricate blackwork ornamental design with detailed patterns and bold contrast. Pure black ink artistry at its finest.",
-      tags: ["blackwork", "ornamental", "patterns", "bold", "contrast"],
-      clientTestimonial: "The detail work is incredible. So happy with this piece!",
-      clientName: "David Santos",
-      featured: false,
-    },
-  ]
+  
 
   const categories = [
     "all",
@@ -299,13 +162,14 @@ export default function PortfolioPage() {
           {filteredItems.map((item) => (
             <Card
               key={item.id}
-              className="bg-slate-800/50 border-slate-700 overflow-hidden group hover:border-purple-500/50 transition-all duration-300"
+              className="p-0 gap-0 bg-slate-800/50 border-slate-700 overflow-hidden group hover:border-purple-500/50 transition-all duration-300"
             >
-              <div className="relative">
+              <CardHeader className="gap-0 p-0">
+                 <div className="relative">
                 <img
                   src={item.image || "/placeholder.svg"}
                   alt={item.title}
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-70 object-cover"
                 />
                 {item.featured && (
                   <Badge className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white">
@@ -322,23 +186,10 @@ export default function PortfolioPage() {
                 >
                   <Heart className={`w-4 h-4 ${favorites.has(item.id) ? "fill-current" : ""}`} />
                 </Button>
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <div className="flex items-center justify-center space-x-4 mb-2">
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="text-sm">{item.rating}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Eye className="w-4 h-4" />
-                        <span className="text-sm">{item.reviews}</span>
-                      </div>
-                    </div>
-                    <p className="text-2xl font-bold">₱{item.price.toLocaleString()}</p>
-                  </div>
-                </div>
+               
               </div>
-              <CardContent className="p-4">
+             </CardHeader>
+              <CardContent className="p-4 gap-0">
                 <div className="flex items-center justify-between mb-2">
                   <Badge variant="outline" className="text-xs">
                     {item.category}

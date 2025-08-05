@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog"
 import { Clock, MapPin, Phone, Mail, Instagram, Facebook, Star, User, LogOut, Settings, Eye } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { testimonials, featuredWork } from "@/data/mock-data"
 
 export default function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -62,7 +63,7 @@ export default function HomePage() {
     })
   }
 
-  
+
   const handleBookingSubmit = (e) => {
     e.preventDefault()
     toast({
@@ -84,50 +85,7 @@ export default function HomePage() {
     })
   }
 
-  const testimonials = [
-    {
-      name: "Maria Santos",
-      rating: 5,
-      text: "Amazing work! The artist was professional and the studio was very clean. Highly recommend!",
-      tattoo: "Rose sleeve",
-    },
-    {
-      name: "John Cruz",
-      rating: 5,
-      text: "Best tattoo experience I've ever had. The attention to detail is incredible.",
-      tattoo: "Dragon back piece",
-    },
-    {
-      name: "Ana Reyes",
-      rating: 5,
-      text: "Professional, clean, and artistic. Will definitely be coming back for more work!",
-      tattoo: "Geometric design",
-    },
-  ]
 
-  const featuredWork = [
-    {
-      id: 1,
-      title: "Dragon Sleeve",
-      image: "/placeholder.svg?height=300&width=300&text=Dragon+Sleeve",
-      style: "Traditional Japanese",
-      likes: 234,
-    },
-    {
-      id: 2,
-      title: "Portrait Realism",
-      image: "/placeholder.svg?height=300&width=300&text=Portrait+Realism",
-      style: "Black & Grey",
-      likes: 189,
-    },
-    {
-      id: 3,
-      title: "Watercolor Phoenix",
-      image: "/placeholder.svg?height=300&width=300&text=Watercolor+Phoenix",
-      style: "Watercolor",
-      likes: 298,
-    },
-  ]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -394,35 +352,36 @@ export default function HomePage() {
       </section>
 
       {/* Featured Work Preview */}
-      <section className="py-16 px-4 bg-slate-800/30">
+      <section className="py-16 bg-slate-800/30">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h3 className="text-4xl font-bold text-white mb-4">Featured Work</h3>
             <p className="text-slate-300 text-lg">A glimpse of our artistic excellence</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 mb-8 gap-6">
             {featuredWork.map((work) => (
               <Card
-                key={work.id}
-                className="bg-slate-800/50 border-slate-700 hover:border-purple-500/50 transition-all duration-300 group overflow-hidden"
+                className="p-0 bg-slate-800/50 border-slate-700 hover:border-purple-500/50 transition-all duration-300 group overflow-hidden"
               >
-                <div className="relative">
+                <CardHeader className="gap-0 p-0">
+                   <div className="relative w-full h-64 overflow-hidden">
                   <img
-                    src={work.image || "/placeholder.svg"}
+                    src={work.image}
                     alt={work.title}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0  bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex items-center space-x-2 text-white">
+                    <div className="flex items-center text-white">
                       <Eye className="w-4 h-4" />
                       <span className="text-sm">{work.likes} likes</span>
                     </div>
                   </div>
                 </div>
+               </CardHeader>
                 <CardContent className="p-4">
-                  <h4 className="font-semibold text-white text-lg mb-1">{work.title}</h4>
+                  <h4 className="font-semibold text-white text-lg">{work.title}</h4>
                   <p className="text-slate-400 text-sm">{work.style}</p>
                 </CardContent>
               </Card>
