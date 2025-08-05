@@ -62,6 +62,7 @@ export default function HomePage() {
     })
   }
 
+  
   const handleBookingSubmit = (e) => {
     e.preventDefault()
     toast({
